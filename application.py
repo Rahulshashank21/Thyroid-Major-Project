@@ -11,14 +11,10 @@ app=application
 scaler=pickle.load(open("Model/scaler.pkl", "rb"))
 model = pickle.load(open("Model/randomf_classifier.pkl", "rb"))
 
-## Route for homepage
 
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 ## Route for Single data point prediction
-@app.route('/predictdata',methods=['GET','POST'])
+@app.route('/',methods=['GET','POST'])
 def predict_datapoint():
     result=""
 
@@ -56,7 +52,7 @@ def predict_datapoint():
         return render_template('single_prediction.html',result=result)
 
     else:
-        return render_template('project.html')
+        return render_template('frontend.html')
 
 
 if __name__=="__main__":

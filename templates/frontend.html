@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    .heading h1 {
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      margin-top: 1rem;
+      font-size: 3rem;
+      text-shadow: 1px 2px 2px red;
+    }
+    
+    .wrapper {
+      min-height: 100vh;
+      width: 100%;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      color: white;
+    }
+    
+    .imagediv {
+      width: 50%;
+    }
+    
+    .imagediv img {
+      height: 100%;
+      width: 100%;
+    }
+    
+    .login {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .login div {
+      margin: 10px 0;
+      font-size: large;
+      border-bottom: 1px solid gray;
+      padding: 8px 5px;
+    }
+    
+    .login label {
+      text-transform: capitalize;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+      color: purple;
+    }
+    
+    .login div input[type="text"] {
+      font-size: large;
+      padding: 2px;
+      border-radius: 5px;
+      outline: none;
+      border: 0;
+    }
+    
+    .btn {
+      background-color: green;
+      width: 100%;
+      padding: 5px;
+      font-size: larger;
+      color: white;
+      font-weight: 600;
+      outline: none;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      border: 1px solid white;
+      transition: all 2s;
+    }
+    
+    .btn:hover {
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="heading">
+    <h1>Thyroid Prediction</h1>
+  </div>
+  <div class="wrapper">
+    <div class="imagediv">
+      <img src="https://www.shutterstock.com/image-photo/human-anatomy-thyroid-gland-body-260nw-1967615947.jpg" alt="no image">
+    </div>
+    <div class="login">
+      <form action="{{ url_for('predict_datapoint')}}" method="post">
+        <div>
+          <label for="age">Age:</label>
+          <input type="text" name="age" placeholder="Age" required>
+        </div>
+        <div>
+          <label for="sex">Sex:</label>
+          <input type="radio" name="sex" value="1" required> Male
+          <input type="radio" name="sex" value="0" required> Female
+        </div>
+        <div>
+          <label for="on_thyroxine">On Thyroxine:</label>
+          <input type="radio" name="on_thyroxine" value="1" required> True
+          <input type="radio" name="on_thyroxine" value="0" required> False
+        </div>
+        <div>
+          <label for="query_on_thyroxine">Query on Thyroxine:</label>
+          <input type="radio" name="query_on_thyroxine" value="1" required> True
+          <input type="radio" name="query_on_thyroxine" value="0" required> False
+        </div>
+        <div>
+          <label for="on_antithyroid_medication">On Antithyroid Medication:</label>
+          <input type="radio" name="on_antithyroid_medication" value="1" required> True
+          <input type="radio" name="on_antithyroid_medication" value="0" required> False
+        </div>
+        <div>
+          <label for="sick">Sick:</label>
+          <input type="radio" name="sick" value="1" required> True
+          <input type="radio" name="sick" value="0" required> False
+        </div>
+        <div>
+          <label for="pregnant">Pregnant:</label>
+          <input type="radio" name="pregnant" value="1" required> True
+          <input type="radio" name="pregnant" value="0" required> False
+        </div>
+        <div>
+          <label for="thyroid_surgery">Thyroid Surgery:</label>
+          <input type="radio" name="thyroid_surgery" value="1" required> True
+          <input type="radio" name="thyroid_surgery" value="0" required> False
+        </div>
+        <div>
+          <label for="I131_treatment">I131 Treatment:</label>
+          <input type="radio" name="I131_treatment" value="1" required> True
+          <input type="radio" name="I131_treatment" value="0" required> False
+        </div>
+        <div>
+          <label for="query_hypothyroid">Query Hypothyroid:</label>
+          <input type="radio" name="query_hypothyroid" value="1" required> True
+          <input type="radio" name="query_hypothyroid" value="0" required> False
+        </div>
+        <div>
+          <label for="query_hyperthyroid">Query Hyperthyroid:</label>
+          <input type="radio" name="query_hyperthyroid" value="1" required> True
+          <input type="radio" name="query_hyperthyroid" value="0" required> False
+        </div>
+        <div>
+          <label for="lithium">Lithium:</label>
+          <input type="radio" name="lithium" value="1" required> True
+          <input type="radio" name="lithium" value="0" required> False
+        </div>
+        <div>
+          <label for="goitre">Goitre:</label>
+          <input type="radio" name="goitre" value="1" required> True
+          <input type="radio" name="goitre" value="0" required> False
+        </div>
+        <div>
+          <label for="tumor">Tumor:</label>
+          <input type="radio" name="tumor" value="1" required> True
+          <input type="radio" name="tumor" value="0" required> False
+        </div>
+        <div>
+          <label for="hypopituitary">Hypopituitary:</label>
+          <input type="radio" name="hypopituitary" value="1" required> True
+          <input type="radio" name="hypopituitary" value="0" required> False
+        </div>
+        <div>
+          <label for="psych">Psych:</label>
+          <input type="radio" name="psych" value="1" required> True
+          <input type="radio" name="psych" value="0" required> False
+        </div>
+        <div>
+          <label for="TSH">TSH:</label>
+          <input type="text" name="TSH" placeholder="TSH" required>
+        </div>
+        <div>
+          <label for="T3">T3:</label>
+          <input type="text" name="T3" placeholder="T3" required>
+        </div>
+        <div>
+          <label for="TT4">TT4:</label>
+          <input type="text" name="TT4" placeholder="TT4" required>
+        </div>
+        <div>
+          <label for="T4U">T4U:</label>
+          <input type="text" name="T4U" placeholder="T4U" required>
+        </div>
+        
+        <input type="submit" class="btn" value="Predict">
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
